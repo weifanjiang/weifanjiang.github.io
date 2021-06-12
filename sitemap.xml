@@ -3,15 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/categories/</loc>
+    <loc>http://weifanjiang.github.io/categories/</loc>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>http://weifanjiang.github.io/tags/</loc>
   </url>
   
   <url>
-    <loc>/</loc>
+    <loc>http://weifanjiang.github.io/</loc>
   </url>
   
 </urlset>
