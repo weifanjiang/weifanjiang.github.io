@@ -2,24 +2,22 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: PhD student @ <a href="https://www.seas.harvard.edu/computer-science">Harvard CS</a> | Student Researcher @ <a href="https://techsysinfra.google/">Google</a>
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: true # crops the image to make it circular
   address: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>weifanjiang[at]g.harvard.edu</p>
+    <p>Office: SEC 4.431</p>
+#    <p>Your City, State 12345</p>
 
 news: true  # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am a second-year PhD student in Computer Science at [Harvard University](https://www.harvard.edu/). I am fortunate to be advised by Prof. [Minlan Yu](http://minlanyu.seas.harvard.edu/). I am also a student researcher at [Technical Systems & Infrastructure, Google](https://techsysinfra.google/). My research interest is broadly in **computer systems** and **networking**. I am particularly interested in applying **machine learning** techniques to solve system-related problems.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Prior to Harvard, I received MS in Computer Science from [Columbia University](https://www.columbia.edu/) in May 2021, working with Prof. [Suman Jana](https://www.cs.columbia.edu/~suman/) and Prof. [Ethan Katz-Bassett](http://www.columbia.edu/~ebk2141/). I received BS with double majors in Computer Science and ACMS (Applied and Computational Math Sciences, Discrete Math and Algorithms option) from [University of Washington, Seattle](https://www.washington.edu) in June 2019.
