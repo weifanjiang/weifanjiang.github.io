@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: weifanjiang[at]g.harvard.edu | Office <a href"https://seas.harvard.edu/about-us/visit-us/allston/science-engineering-complex">SEC</a> 4.431
+subtitle: weifanjiang[at]g.harvard.edu | Office <a href="https://seas.harvard.edu/about-us/visit-us/allston/science-engineering-complex">SEC</a> 4.431
 
 profile:
   align: right
