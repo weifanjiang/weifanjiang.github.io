@@ -2,7 +2,7 @@
 ---
 
 @inproceedings{10.1145/3484266.3487371,
-abbr = {HotNets},
+abbr = {HotNets'21},
 selected = {true},
 author = {Koch, Thomas and Jiang, Weifan and Luo, Tao and Gigis, Petros and Zhang, Yunfan and Vermeulen, Kevin and Aben, Emile and Calder, Matt and Katz-Bassett, Ethan and Manassakis, Lefteris and Smaragdakis, Georgios and Vallina-Rodriguez, Narseo},
 title = {Towards a Traffic Map of the Internet: Connecting the Dots between Popular Services and Users},
@@ -22,7 +22,7 @@ pdf = {papers/koch2021itm.pdf}
 }
 
 @inproceedings{10.1145/3487552.3487844,
-abbr = {IMC},
+abbr = {IMC'21},
 selected = {true},
 author = {Jiang, Weifan and Luo, Tao and Koch, Thomas and Zhang, Yunfan and Katz-Bassett, Ethan and Calder, Matt},
 title = {Towards Identifying Networks with Internet Clients Using Public Data},
@@ -39,11 +39,13 @@ numpages = {10},
 keywords = {replicable, internet measurement, network mapping},
 location = {Virtual Event},
 series = {IMC '21},
-pdf = {papers/jiang2021towards.pdf}
+pdf = {papers/jiang2021towards.pdf},
+talk = {https://www.youtube.com/watch?v=-OTbiHB8DbM},
+slides = {papers/jiang2021towards_slides.pdf}
 }
 
 @inproceedings {272268,
-abbr = {Security},
+abbr = {Security'21},
 selected = {true},
 author = {Yizheng Chen and Shiqi Wang and Weifan Jiang and Asaf Cidon and Suman Jana},
 title = {{Cost-Aware} Robust Tree Ensembles for Security Applications},
@@ -55,11 +57,11 @@ url = {https://www.usenix.org/conference/usenixsecurity21/presentation/chen-yizh
 publisher = {USENIX Association},
 month = aug,
 abstract = {There are various costs for attackers to manipulate the features of security classifiers. The costs are asymmetric across features and to the directions of changes, which cannot be precisely captured by existing cost models based on Lp-norm robustness. In this paper, we utilize such domain knowledge to increase the attack cost of evading classifiers, specifically, tree ensemble models that are widely used by security tasks. We propose a new cost modeling method to capture the feature manipulation cost as constraint, and then we integrate the cost-driven constraint into the node construction process to train robust tree ensembles. During the training process, we use the constraint to find data points that are likely to be perturbed given the feature manipulation cost, and we use a new robust training algorithm to optimize the quality of the trees. Our cost-aware training method can be applied to different types of tree ensembles, including gradient boosted decision trees and random forest models. Using Twitter spam detection as the case study, our evaluation results show that we can increase the attack cost by 10.6⇥ compared to the baseline. Moreover, our robust training method using cost-driven constraint can achieve higher accuracy, lower false positive rate, and stronger cost-aware robustness than the state-of-theart training method using L•-norm cost model. Our code is available at https://github.com/surrealyz/growtrees.},
-pdf = {https://www.usenix.org/system/files/sec21-chen-yizheng.pdf}
+pdf = {papers/chen2021trees.pdf}
 }
 
 @inproceedings{10.1145/3419394.3423613,
-abbr = {IMC},
+abbr = {IMC'20},
 selected = {true},
 author = {Arnold, Todd and He, Jia and Jiang, Weifan and Calder, Matt and Cunha, Italo and Giotsas, Vasileios and Katz-Bassett, Ethan},
 title = {Cloud Provider Connectivity in the Flat Internet},
@@ -79,8 +81,20 @@ series = {IMC '20},
 pdf = {papers/arnold2020cloud.pdf}
 }
 
+@inproceedings{he2020footprint,
+abbr = {N2Women'20},
+selected = {true},
+author = {He, Jia and Jiang, Weifan and Gürmeriçliler, Ege and Essig, Georgia and Gupta, Arpit and Calder, Matt and Giotsas, Vasileios and Cunha, Italo and Katz-Bassett, Ethan and Arnold, Todd},
+title = {Poster: Footprint and Performance of Large Cloud Networks},
+year = {2020},
+abstract = {The Tier-1 and Tier-2 transit providers have historically been considered the backbone of the Internet as they guarantee global reachability. In recent years, Internet flattening has reduced the need for transit providers, an effect greatly contributed to by the top cloud providers, such as Google, Amazon, Microsoft, and IBM. Recently, these cloud providers started offering two performance tiers for routing traffic. One tier, referred to as "Premium Tier" (PT), the Google-specific term, uses the cloud provider’s private network as much as possible, while "Standard Tier" (ST), uses the public Internet as much as possible. Through analysis of measurements made to gather performance and connectivity data, we find that the cloud provider networks’ points-of-presence (PoPs) tend to be deployed closer to population centers than the transit providers’ PoPs. We also find that the performance improvement from PT service is dependent on variables such as the ST/PT path length difference. These metrics demonstrate how cloud providers connect within the Internet, and what benefits their private networks provide to users.},
+booktitle = {ACM SIGCOMM 2020 Networking Networking Women Professional Development Workshop},
+pdf = {papers/he2020footprint.pdf},
+poster = {papers/he2020footprint_poster.pdf}
+}
+
 @INPROCEEDINGS{9342946,
-abbr = {GHTC},
+abbr = {GHTC'20},
 selected = {true},
 author={Jiang, Weifan and Kumar, Vivek and Mehta, Nikhil and Bott, Jack and Modi, Vijay},
 booktitle={2020 IEEE Global Humanitarian Technology Conference (GHTC)},
@@ -91,5 +105,5 @@ number={},
 pages={1-4},
 doi={10.1109/GHTC46280.2020.9342946},
 abstract={Irrigation can greatly increase the income of smallholder farmers in sub-Saharan Africa. By providing information about current irrigation utilization, or lack thereof, we seek to encourage investment in irrigation systems and their supporting infrastructure. In this paper, we describe the design, prototyping, and testing of a novel, cost-effective, and reliable computer vision system that is capable of locating irrigated plots at scale. Our system will be mounted to a vehicle and record the depth of objects in the camera’s view while the vehicle is in motion. The GPS coordinates of objects are computed based on estimated depth, vehicle coordinates, and orientation, available from included sensors. We tested our prototype on objects at various distances from the system and achieved feasible accuracy with acceptable error in the estimated depth. In the future, we hope to deploy the system in parts of sub-Saharan Africa, to detect and geolocate irrigated agricultural plots during the dry season. Then we plan to use that collected data to inform and train machine learning models that use remote sensing and satellite imagery.},
-pdf={https://qsel.columbia.edu/assets/uploads/blog/2020/publications/irrigation-detection-by-car-ghtc-fall-2020.pdf}
+pdf={papers/jiang2020irrigation.pdf}
 }
