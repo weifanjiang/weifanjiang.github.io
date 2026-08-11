@@ -170,6 +170,7 @@ kramdown:
 include: ['_pages']
 exclude:
   - bin
+  - DEPLOYMENT.md
   - Gemfile
   - Gemfile.lock
   - vendor
