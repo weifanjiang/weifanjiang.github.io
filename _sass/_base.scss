@@ -109,8 +109,12 @@ blockquote {
   margin-left: 1rem;
 }
 // keep the intro text as a side column instead of wrapping under the photo
-article > .clearfix {
-  overflow: hidden;
+// (desktop only: on narrow screens the photo is full-width and would squeeze
+// this column to zero width, hiding the text)
+@media (min-width: 576px) {
+  article > .clearfix {
+    overflow: hidden;
+  }
 }
 .profile.float-left{
   margin-right: 1rem;
