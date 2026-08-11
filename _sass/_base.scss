@@ -108,6 +108,10 @@ blockquote {
 .profile.float-right{
   margin-left: 1rem;
 }
+// keep the intro text as a side column instead of wrapping under the photo
+article > .clearfix {
+  overflow: hidden;
+}
 .profile.float-left{
   margin-right: 1rem;
 }
