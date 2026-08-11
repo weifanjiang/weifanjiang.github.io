@@ -22,6 +22,9 @@
             {%- if site.github_username -%}
             <a href="https://github.com/{{ site.github_username }}" title="GitHub"><i class="fab fa-github"></i></a>
             {% endif %}
+            {%- if site.huggingface_username -%}
+            <a href="https://huggingface.co/{{ site.huggingface_username }}" title="Hugging Face"><span class="hf-icon">🤗</span></a>
+            {% endif %}
             {%- if site.linkedin_username -%}
             <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
             {% endif %}
