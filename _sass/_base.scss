@@ -529,6 +529,17 @@ footer.sticky-bottom {
       .title {
         font-weight: bolder;
       }
+      // venue reads as a label: theme-colored and upright, year stays quiet
+      .periodical {
+        font-size: 0.95rem;
+        color: var(--global-text-color-light);
+        em {
+          font-style: normal;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          color: var(--global-theme-color);
+        }
+      }
       .author {
         a {
           border-bottom: 1px dashed var(--global-theme-color);
