@@ -1,12 +1,11 @@
 name: deploy
 
+# Disabled August 2026: the build step fails on the runner even though the same
+# build succeeds locally, so every push produced a failure email. Deploys are
+# manual — see DEPLOYMENT.md. Run this by hand from the Actions tab to debug it;
+# re-add the push/pull_request triggers once it goes green.
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
 
 permissions:
   contents: write

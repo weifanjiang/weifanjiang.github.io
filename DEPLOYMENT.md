@@ -106,11 +106,14 @@ CDN cache is 10 minutes; hard-refresh with Cmd+Shift+R to bypass browser cache).
 
 ## Known issues
 
-- **GitHub Actions deploy is broken** (as of August 2026): the `bundle exec jekyll build`
-  step fails on the runner even though the identical build succeeds in a local
-  `ruby:3.0.2` container. The workflow (`.github/workflows/deploy.yml`) was already
-  modernized and `Gemfile.lock` pinned; debugging further requires reading the CI logs,
-  which needs repo authentication (`gh auth login`). Until fixed, deploys are manual.
+- **GitHub Actions deploy is broken and now disabled** (as of August 2026): the
+  `bundle exec jekyll build` step fails on the runner even though the identical build
+  succeeds in a local `ruby:3.0.2` container. Because every push to `master` then sent a
+  failure email, `.github/workflows/deploy.yml` was changed to `workflow_dispatch` only —
+  it no longer runs automatically, but you can still trigger it by hand from the repo's
+  Actions tab to debug. The workflow was already modernized and `Gemfile.lock` pinned;
+  diagnosing the remaining failure means reading the runner logs, which needs repo
+  authentication (`gh auth login`). Re-add the `push:` trigger once it goes green.
 - **Do not re-add `polyfill.io`** (was in `_includes/scripts/mathjax.html`): the domain
   was hijacked in 2024 and served malicious sign-in prompts to visitors. Removed in
   August 2026.
