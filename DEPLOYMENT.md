@@ -4,19 +4,30 @@ Last verified: August 2026.
 
 ## Overview
 
-- **Source** lives on the `master` branch, checked out at `~/weifanjiang.github.io` on zu
-  (`ssh weifan@zu.int.seas.harvard.edu`).
+- **Source** lives on the `master` branch. There is a long-standing checkout at
+  `~/weifanjiang.github.io` on zu (`ssh weifan@zu.int.seas.harvard.edu`), but any clone
+  works — see [Where to work](#where-to-work).
 - **The live site** is the `gh-pages` branch, served by GitHub Pages at
   <https://weifanjiang.github.io>. Never edit `gh-pages` by hand — it is overwritten on
   every deploy.
-- **Deploys are manual**: build the site with Jekyll in a Docker container (a laptop with
-  Docker Desktop works; zu's Ruby is too old to build), then push the built `_site` to
-  `gh-pages` from zu. The GitHub Actions auto-deploy is currently broken — see
-  [Known issues](#known-issues).
+- **Deploys are manual**: build the site with Jekyll in a Docker container, then push the
+  built `_site` to the `gh-pages` branch. The GitHub Actions auto-deploy is currently
+  broken — see [Known issues](#known-issues).
+
+## Where to work
+
+The whole build-and-deploy flow runs on a laptop with Docker; **zu is not required**.
+The laptop's SSH key is registered with GitHub, so it can push both `master` and
+`gh-pages` directly.
+
+Prefer the laptop: zu's hostname is on Harvard's internal network and only resolves on
+the VPN or on campus, and zu's Ruby is too old to build the site anyway. If you do edit
+on zu, remember to `git pull` on the laptop (and vice versa) so the two checkouts don't
+drift.
 
 ## Revising the site
 
-Edit source files on zu's `master` branch:
+Edit source files on the `master` branch:
 
 | What | Where |
 |------|-------|
@@ -57,24 +68,26 @@ Notes:
 - `JEKYLL_ENV=production` matters — without it analytics/minification differ.
 - On macOS, start Docker Desktop first (`open -a Docker`; takes a couple of minutes).
 
-### 2. Publish (from zu, which has the GitHub SSH key)
+### 2. Publish the built site to `gh-pages`
+
+From the same machine you built on:
 
 ```bash
-scp site_build.tgz weifan@zu.int.seas.harvard.edu:/tmp/
-
-ssh weifan@zu.int.seas.harvard.edu
-export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=~/.github_known_hosts"
 rm -rf /tmp/ghp
 git clone --depth 1 -b gh-pages git@github.com:weifanjiang/weifanjiang.github.io.git /tmp/ghp
 cd /tmp/ghp
 find . -maxdepth 1 ! -name . ! -name .git -exec rm -rf {} +
-tar xzf /tmp/site_build.tgz -C .
+tar xzf <path>/site_build.tgz -C .
 touch .nojekyll
 git add -fA
 git commit -m "deploy: <describe change> [manual deploy]"
 git push origin gh-pages
-cd / && rm -rf /tmp/ghp /tmp/site_build.tgz
+cd / && rm -rf /tmp/ghp
 ```
+
+If you are publishing from zu instead, first `scp` the tarball there and set
+`export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=~/.github_known_hosts"` — see
+[Environment quirks on zu](#environment-quirks-on-zu).
 
 ### 3. Verify
 
