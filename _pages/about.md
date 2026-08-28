@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: weifanjiang[at]g.harvard.edu | Office <a href="https://seas.harvard.edu/about-us/visit-us/allston/science-engineering-complex">SEC</a> 4.431
+subtitle: weifanjiang[at]g.harvard.edu | Office <a href="https://seas.harvard.edu/about-us/visit-us/allston/science-engineering-complex">SEC</a> 4.429
 
 profile:
   align: right
@@ -10,7 +10,7 @@ profile:
   image_circular: false # crops the image to make it circular
   address: >
 #    <p>weifanjiang[at]g.harvard.edu</p>
-#    <p>Office: SEC 4.431</p>
+#    <p>Office: SEC 4.429</p>
 #    <p>Your City, State 12345</p>
 
 news: false  # includes a list of news items
