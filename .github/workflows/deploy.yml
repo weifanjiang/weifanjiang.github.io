@@ -25,6 +25,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0.2'
+          # bundler 2.4 cannot override Ruby 3.0's built-in `uri` default gem,
+          # which the lockfile pins to a newer version; 2.5+ handles this.
+          bundler: latest
           bundler-cache: true
       - name: Build site
         env:
