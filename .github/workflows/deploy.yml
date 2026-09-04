@@ -27,9 +27,15 @@ jobs:
           ruby-version: '3.0.2'
           bundler-cache: true
       - name: Build site
-        run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
+        run: |
+          if ! bundle exec jekyll build > /tmp/build.log 2>&1; then
+            tail -60 /tmp/build.log
+            msg=$(tail -c 2500 /tmp/build.log | sed ':a;N;$!ba;s/\r//g; s/\n/%0A/g')
+            echo "::error title=jekyll-build::${msg}"
+            exit 1
+          fi
       - name: Deploy to gh-pages
         if: github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v4
