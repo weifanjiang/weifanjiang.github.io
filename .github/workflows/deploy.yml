@@ -1,10 +1,9 @@
 name: deploy
 
-# Disabled August 2026: the build step fails on the runner even though the same
-# build succeeds locally, so every push produced a failure email. Deploys are
-# manual — see DEPLOYMENT.md. Run this by hand from the Actions tab to debug it;
-# re-add the push/pull_request triggers once it goes green.
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -16,6 +15,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      # jekyll-imagemagick needs the `convert` binary; the ubuntu-24.04 runner
+      # image no longer ships ImageMagick, which silently broke this build.
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
