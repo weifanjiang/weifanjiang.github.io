@@ -529,14 +529,15 @@ footer.sticky-bottom {
       .title {
         font-weight: bolder;
       }
-      // venue reads as a label: theme-colored and upright, year stays quiet
+      // Venue is italic per bibliographic convention. Deliberately NOT
+      // --global-theme-color: that is the link color, so a colored venue
+      // reads as clickable. Year matches the venue so the line is uniform.
       .periodical {
         font-size: 0.95rem;
-        color: var(--global-text-color-light);
+        color: var(--global-text-color);
         em {
-          font-style: normal;
-          font-weight: 500;
-          color: var(--global-theme-color);
+          font-style: italic;
+          color: inherit;
         }
       }
       .author {
