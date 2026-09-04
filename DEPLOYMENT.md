@@ -1,29 +1,17 @@
 # Deploying weifanjiang.github.io
 
-Last verified: August 2026.
+Last verified: September 2026.
 
 ## Overview
 
-- **Source** lives on the `master` branch. There is a long-standing checkout at
-  `~/weifanjiang.github.io` on zu (`ssh weifan@zu.int.seas.harvard.edu`), but any clone
-  works — see [Where to work](#where-to-work).
+- **Source** lives on the `master` branch. Any clone works; there is also an old checkout
+  at `~/weifanjiang.github.io` on zu, which only resolves on Harvard VPN and can drift.
 - **The live site** is the `gh-pages` branch, served by GitHub Pages at
   <https://weifanjiang.github.io>. Never edit `gh-pages` by hand — it is overwritten on
   every deploy.
-- **Deploys are manual**: build the site with Jekyll in a Docker container, then push the
-  built `_site` to the `gh-pages` branch. The GitHub Actions auto-deploy is currently
-  broken — see [Known issues](#known-issues).
-
-## Where to work
-
-The whole build-and-deploy flow runs on a laptop with Docker; **zu is not required**.
-The laptop's SSH key is registered with GitHub, so it can push both `master` and
-`gh-pages` directly.
-
-Prefer the laptop: zu's hostname is on Harvard's internal network and only resolves on
-the VPN or on campus, and zu's Ruby is too old to build the site anyway. If you do edit
-on zu, remember to `git pull` on the laptop (and vice versa) so the two checkouts don't
-drift.
+- **Deploys are automatic.** Push to `master` and GitHub Actions
+  (`.github/workflows/deploy.yml`) builds the site and publishes it to `gh-pages`.
+  Nothing else is required — no Docker, no local Ruby.
 
 ## Revising the site
 
@@ -38,82 +26,58 @@ Edit source files on the `master` branch:
 | Site-wide settings | `_config.yml` |
 | Styles | `_sass/` |
 
-Then commit and push:
+Then:
 
 ```bash
 git add -A && git commit -m "..." && git push origin master
 ```
 
-Pushing `master` does **not** deploy anything (CI is broken). Follow the steps below.
+The site updates within a few minutes. Watch the run in the repo's **Actions** tab; the
+change is live once both `deploy` and `pages build and deployment` are green. GitHub's
+CDN caches for 10 minutes, so hard-refresh (Cmd+Shift+R) if you still see the old page.
 
-## Deploying
+### Adding a publication
 
-### 1. Build (on a machine with Docker)
+1. Add the entry to `_bibliography/papers.bib`. Include `selected = {true}` to show it on
+   the homepage, and a `venue = {...}` field with the **full conference name** (e.g.
+   `International Conference on Learning Representations`) — that is what renders, not the
+   `booktitle`.
+2. Put the PDF in `assets/pdf/papers/` and reference it as `pdf = {papers/<file>.pdf}`.
+3. **Add the year to `years:` in `_pages/publications.md`.** That list is explicit; a year
+   missing from it silently omits the paper from the publications page.
+
+## Known issues and gotchas
+
+- **Do not add `bundler-cache: true` to the deploy workflow.** It installs gems into
+  `vendor/bundle`, where Ruby 3.0's built-in `uri` default gem wins activation over the
+  version `Gemfile.lock` pins, and the build dies with
+  `Gem::LoadError: You have already activated uri 0.10.1, but your Gemfile requires uri 1.1.1`.
+  Installing into the default gem path (what the workflow does now) avoids this. Upgrading
+  Ruby past 3.0.2 would likely also fix it, but that risks the older pinned gems.
+- **The workflow installs ImageMagick explicitly.** `jekyll-imagemagick` needs the
+  `convert` binary for responsive images, and the ubuntu-24.04 runner image no longer
+  ships it preinstalled. This is why the build broke sometime between 2023 and 2026.
+- **Build failures are hard to read without repo auth.** The workflow echoes the head of
+  the Jekyll log as a `::error::` annotation, which is readable from the public API
+  (`/commits/<sha>/check-runs` → `/check-runs/<id>/annotations`) without a token.
+- **Do not re-add `polyfill.io`** (was in `_includes/scripts/mathjax.html`): the domain
+  was hijacked in 2024 and served malicious sign-in prompts to visitors. Removed in
+  August 2026.
+
+## Fallback: building and publishing by hand
+
+Only needed if Actions is down or you want to preview locally. Requires Docker.
 
 ```bash
-git clone git@github.com:weifanjiang/weifanjiang.github.io.git site && cd site
-# or: git pull, in an existing clone
-
 docker run --rm -v "$PWD:/site" -w /site ruby:3.0.2 bash -c "
   apt-get update -qq && apt-get install -y -qq imagemagick
   gem install bundler -v 2.4.22
   bundle install
   JEKYLL_ENV=production bundle exec jekyll build"
-
-tar czf site_build.tgz -C _site .
 ```
 
-Notes:
-- Ruby is pinned at 3.0.2 and gem versions are pinned by the committed `Gemfile.lock`.
-- `JEKYLL_ENV=production` matters — without it analytics/minification differ.
-- On macOS, start Docker Desktop first (`open -a Docker`; takes a couple of minutes).
-
-### 2. Publish the built site to `gh-pages`
-
-From the same machine you built on:
-
-```bash
-rm -rf /tmp/ghp
-git clone --depth 1 -b gh-pages git@github.com:weifanjiang/weifanjiang.github.io.git /tmp/ghp
-cd /tmp/ghp
-find . -maxdepth 1 ! -name . ! -name .git -exec rm -rf {} +
-tar xzf <path>/site_build.tgz -C .
-touch .nojekyll
-git add -fA
-git commit -m "deploy: <describe change> [manual deploy]"
-git push origin gh-pages
-cd / && rm -rf /tmp/ghp
-```
-
-If you are publishing from zu instead, first `scp` the tarball there and set
-`export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=~/.github_known_hosts"` — see
-[Environment quirks on zu](#environment-quirks-on-zu).
-
-### 3. Verify
-
-The change appears at <https://weifanjiang.github.io> within ~1–5 minutes (GitHub Pages
-CDN cache is 10 minutes; hard-refresh with Cmd+Shift+R to bypass browser cache).
-
-## Environment quirks on zu
-
-- `~/.ssh` is owned by root and read-only, so GitHub's host keys live in
-  `~/.github_known_hosts` instead. The source repo has `core.sshCommand` configured to
-  use it; fresh clones (like the `/tmp/ghp` one above) need `GIT_SSH_COMMAND` set
-  explicitly, as shown.
-- zu's SSH key (`~/.ssh/id_rsa.pub`, "weifan@zu") must be registered at
-  <https://github.com/settings/keys>. It was re-added in August 2026 after having been
-  removed.
-
-## Known issues
-
-- **GitHub Actions deploy is broken and now disabled** (as of August 2026): the
-  `bundle exec jekyll build` step fails on the runner even though the identical build
-  succeeds in a local `ruby:3.0.2` container. Because every push to `master` then sent a
-  failure email, `.github/workflows/deploy.yml` was changed to `workflow_dispatch` only —
-  it no longer runs automatically, but you can still trigger it by hand from the repo's
-  Actions tab to debug. The workflow was already modernized and `Gemfile.lock` pinned;
-  diagnosing the remaining failure means reading the runner logs, which needs repo
-  authentication (`gh auth login`). Re-add the `push:` trigger once it goes green.
-- **Do not re-add `polyfill.io`** (was in `_includes/scripts/mathjax.html`): the domain
-  was hijacked in 2024 and served malicious sign-in prompts to visitors. Removed in
-  August 2026.
+To publish that build: clone `gh-pages` to a temp dir, delete everything except `.git`,
+copy in the contents of `_site`, `touch .nojekyll`, then commit and push. Publishing from
+zu additionally needs
+`export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=~/.github_known_hosts"`, because zu's
+`~/.ssh` is root-owned and read-only so GitHub's host keys live outside it.
