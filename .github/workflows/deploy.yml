@@ -25,10 +25,14 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0.2'
-          # bundler 2.4 cannot override Ruby 3.0's built-in `uri` default gem,
-          # which the lockfile pins to a newer version; 2.5+ handles this.
-          bundler: latest
-          bundler-cache: true
+      # Deliberately NOT using bundler-cache: it installs into vendor/bundle,
+      # where Ruby 3.0's built-in `uri` default gem wins activation over the
+      # version the lockfile pins and the build dies with a Gem::LoadError.
+      # Installing into the default gem path is what works locally.
+      - name: Install gems
+        run: |
+          gem install bundler -v 2.4.22
+          bundle install --jobs 4
       - name: Build site
         env:
           JEKYLL_ENV: production
