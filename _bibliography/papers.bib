@@ -1,6 +1,19 @@
 ---
 ---
 
+@inproceedings{jiang2026svrmad,
+abbr = {EMNLP'26},
+venue = {Findings of the Association for Computational Linguistics: EMNLP},
+selected = {true},
+author = {Jiang, Weifan and Shahout, Rana and Li, Minghao and Qi, Zhenting and Du, Yilun and Mitzenmacher, Michael and Yu, Minlan},
+title = {SVR-MAD: A Bayesian-Inspired Framework for Posterior-Guided Multi-Agent Debate},
+year = {2026},
+booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2026},
+publisher = {Association for Computational Linguistics},
+abstract = {Multi-Agent Debate (MAD) improves LLM-agent accuracy but suffers from rapid context growth, limiting scalability in larger multi-agent settings. Existing methods prune low-utility communications using prior signals, such as token-level log-likelihoods or LLM self-reported confidence. However, these signals become unreliable under hallucination, degrading the accuracy of MAD methods that rely on them. We propose SVR-MAD, a Bayesian-inspired MAD framework that treats pre-debate signals as priors and debate outcomes as posterior-style evidence for estimating agent correctness. SVR-MAD uses this evidence to incrementally construct the communication graph, prioritizing agents whose answers survive peer challenges. Experiments across multiple LLMs and benchmarks show that SVR-MAD reduces token cost by up to 61% while matching or improving accuracy relative to the most accurate competing MAD baseline.},
+pdf = {papers/jiang2026svrmad.pdf}
+}
+
 @inproceedings{shahout2025trail,
 abbr = {ICLR'25},
 venue = {International Conference on Learning Representations (ICLR)},
