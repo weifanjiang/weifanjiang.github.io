@@ -32,7 +32,7 @@ jobs:
         run: |
           if ! bundle exec jekyll build > /tmp/build.log 2>&1; then
             tail -60 /tmp/build.log
-            msg=$(tail -c 2500 /tmp/build.log | sed ':a;N;$!ba;s/\r//g; s/\n/%0A/g')
+            msg=$(head -c 2500 /tmp/build.log | sed ':a;N;$!ba;s/\r//g; s/\n/%0A/g')
             echo "::error title=jekyll-build::${msg}"
             exit 1
           fi
