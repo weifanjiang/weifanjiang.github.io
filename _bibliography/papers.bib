@@ -1,6 +1,20 @@
 ---
 ---
 
+@article{jiang2026hspec,
+abbr = {arXiv},
+venue = {arXiv preprint arXiv:2609.24197},
+selected = {true},
+author = {Jiang, Weifan and Chitty-Venkata, Krishna Teja and Flynn, Megan and Meyerson, Reed and Qi, Zhenting and Wu, Tianyu and Kurtic, Eldar and Yu, Minlan and Marques, Alexandre},
+title = {H-Spec: Parallel Speculative Decoding Without a Drafter-Side KV Cache},
+journal = {arXiv preprint arXiv:2609.24197},
+year = {2026},
+abstract = {Speculative decoding losslessly accelerates large language model inference by having a lightweight draft model predict future tokens for verification by the target model. Recent block diffusion drafters further reduce drafting latency by predicting multiple tokens in parallel. However, existing block drafters project target hidden states at every input position into a separate drafter-side KV cache, incurring per-request memory and KV-write overhead that grow with concurrency; directly reusing target KVs in place removes this cache but fails to sustain draft quality throughout the block. We propose a hybrid target-context injection method that complements direct target KV reuse with target hidden states only at the last input position, requiring no separate drafter-side KV cache. Building on this design, we propose H-Spec, a hybrid Mamba-attention parallel drafter that consumes the two target-context sources through complementary modules. Mamba modules are initialized with projected last-token target hidden states, while attention modules reuse target KVs in place. Despite its recurrent formulation, Mamba's parallel scan allows H-Spec to preserve block-parallel drafting. Across three target models and diverse tasks, H-Spec improves over the best baseline by 5.0–13.3% in mean accepted length and 5.3–12.6% in batch-size-1 inter-token latency speedup. Under concurrent serving, H-Spec consistently achieves higher throughput while maintaining lower KV cache utilization than baselines across evaluated concurrency levels.},
+pdf = {papers/jiang2026hspec.pdf},
+code = {https://github.com/weifanjiang/H-Spec},
+huggingface = {https://huggingface.co/collections/weifanjiang/h-spec}
+}
+
 @inproceedings{jiang2026svrmad,
 abbr = {EMNLP'26},
 venue = {Findings of the Conference on Empirical Methods in Natural Language Processing (EMNLP)},
